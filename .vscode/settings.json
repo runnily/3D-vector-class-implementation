@@ -16,6 +16,8 @@
         "utility": "cpp",
         "vector": "cpp",
         "chrono": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "functional": "cpp",
+        "memory": "cpp"
     }
 }

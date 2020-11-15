@@ -96,6 +96,15 @@ class Bin {
         */
         Bin operator= (Bin rhs);
 
+        /*
+        * Operator []: returns the index at c
+        * Input:
+        *   c (int): The position of the vector within b
+        * Output:
+        *   (Vector3D): The vector at postion b.
+        */
+        Vector3D operator[] (int c);
+
 
 
 
@@ -104,7 +113,7 @@ class Bin {
         int size;
         int index;
 
-        void vectorCpy(Vector3D *cpy[], int index, int size);
+        void vectorCpy(Vector3D cpy[], int index, int size);
 
     
 };

@@ -18,11 +18,9 @@ Bin::Bin(int num):size(num),index(EMPTY) {
 
 Bin::Bin(const Bin &bincpy):size(bincpy.size),index(EMPTY) {
     bin = new Vector3D[bincpy.size];
-    vectorCpy(&bin, 0, bincpy.size);
-    /*
     for (int i = 0; i<bincpy.size; i++) {
         bin[i] = bincpy.bin[i];
-    }*/
+    }
 }
 
 Bin::~Bin() {
@@ -52,12 +50,8 @@ void Bin::add(Vector3D v) {
         index++;
     } else {
         Vector3D * temp = new Vector3D[size+1]; //increase size
-        //vectorCpy(&temp, 0, size);
         temp[size] = v; // new element added in
-        for (int i = 0; i<size; i++) {
-            temp[i] = bin[i];
-        }
-
+        vectorCpy(temp, 0, size);
         delete[] bin; // release old array
         bin = temp; // point to temp
         temp = NULL; // temp is null
@@ -66,35 +60,34 @@ void Bin::add(Vector3D v) {
     }
 }
 
+
 void Bin::remove(int b) {
     if ((b >= EMPTY) && (b < size ) ) {
         if (index>EMPTY) {
             index--;
             size--;
             Vector3D * temp = new Vector3D[size];
-            vectorCpy(&temp, 0, b);
-            vectorCpy(&temp, b+1, size);
-            for (int i = b; i<size;i++) {
+            vectorCpy(temp, 0, b); // copy first half elements across
+            for (int i = b; i<size;i++) { // copy second half across
                 temp[i] = bin[i+1];
             }
-            delete[] bin;
-            bin = temp;
-            temp = NULL;
+            delete[] bin; // free allocate memory, we no longer need this
+            bin = temp; // resaign bin
+            temp = NULL; 
         }
     }
 }
 
-void Bin::vectorCpy(Vector3D *cpy[], int index, int size){
+void Bin::vectorCpy(Vector3D cpy[], int index, int size){
     for (int i = index; i<size; i++) {
-        *cpy[i] = bin[i];
+        cpy[i] = bin[i];
     }
-    cpy = NULL; // once we finished with null point to nothing
 }
 
 
 Bin Bin::operator=(Bin rhs){
-    delete[] bin;
-    bin = NULL;
+    delete[] bin; // delete bin
+    bin = NULL; // ensure bin is null
     return rhs;
 }
 
@@ -109,11 +102,13 @@ ostream& operator<< (ostream& ostream , Bin& bin) {
 }
 
 int main(){
-    Bin b = Bin(1);
-    b.add(Vector3D(5,7,8));
+    Bin b = Bin(3);
+    b.add(Vector3D(1,7,8));
+    b.add(Vector3D(2,7.4,8));
+    b.add(Vector3D(3,7.4,8));
+    b.add(Vector3D(4,7.4,20));
     b.add(Vector3D(5,7.4,8));
-    b.add(Vector3D(5,7.4,8));
-    b.add(Vector3D(5,7.4,8));
-    b.add(Vector3D(5,7.4,8));
+    b.add(Vector3D(8,18.4,8));
+    b.remove(-1);
     cout << b;
 }
