@@ -12,7 +12,7 @@
 
 #endif
 
-Bin::Bin(int num):size(num),index(EMPTY) {
+Bin::Bin(int num):size(num),index(EMPTY-1) {
     bin = new Vector3D[size];
 }
 
@@ -45,9 +45,9 @@ float Bin::getZ(int a) {
 }
 
 void Bin::add(Vector3D v) {
+    index++;
     if (index < size) { 
         bin[index] = v;
-        index++;
     } else {
         Vector3D * temp = new Vector3D[size+1]; //increase size
         temp[size] = v; // new element added in
@@ -56,14 +56,14 @@ void Bin::add(Vector3D v) {
         bin = temp; // point to temp
         temp = NULL; // temp is null
         size++;
-        index++;   
     }
+    cout << index << size << endl;
 }
 
 
 void Bin::remove(int b) {
     if ((b >= EMPTY) && (b < size ) ) {
-        if (index>EMPTY) { // index needs to be greater than 0 to remove
+        if (index>=EMPTY) { // index needs to be greater than 0 to remove
             index--;
             size--;
             Vector3D * temp = new Vector3D[size];
@@ -100,15 +100,8 @@ ostream& operator<< (ostream& ostream , Bin& bin) {
     }
     return ostream;
 }
-
+/*
 int main(){
-    Bin b = Bin(3);
-    b.add(Vector3D(1,7,8));
-    b.add(Vector3D(2,7.4,8));
-    b.add(Vector3D(3,7.4,8));
-    b.add(Vector3D(4,7.4,20));
-    b.add(Vector3D(5,7.4,8));
-    b.add(Vector3D(8,18.4,8));
-    b.remove(-1);
+    Bin b = Bin(5); 
     cout << b;
-}
+}*/
