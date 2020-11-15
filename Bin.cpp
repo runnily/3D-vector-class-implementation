@@ -16,7 +16,7 @@ Bin::Bin(int num):size(num),index(EMPTY) {
     bin = new Vector3D[size];
 }
 
-Bin::Bin(const Bin &bincpy):size(bincpy.size),index(EMPTY) {
+Bin::Bin(const Bin &bincpy):size(bincpy.size),index(bincpy.index) {
     bin = new Vector3D[bincpy.size];
     for (int i = 0; i<bincpy.size; i++) {
         bin[i] = bincpy.bin[i];
@@ -24,7 +24,7 @@ Bin::Bin(const Bin &bincpy):size(bincpy.size),index(EMPTY) {
 }
 
 Bin::~Bin() {
-    delete bin;
+    delete bin; 
     bin = NULL;
 }
 
@@ -63,7 +63,7 @@ void Bin::add(Vector3D v) {
 
 void Bin::remove(int b) {
     if ((b >= EMPTY) && (b < size ) ) {
-        if (index>EMPTY) {
+        if (index>EMPTY) { // index needs to be greater than 0 to remove
             index--;
             size--;
             Vector3D * temp = new Vector3D[size];
