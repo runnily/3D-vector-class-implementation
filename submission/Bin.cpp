@@ -28,6 +28,10 @@ Bin::~Bin() {
     bin = NULL;
 }
 
+int Bin::getIndex() {
+    return index;
+}
+
 int Bin::getSize() {
     return size;
 }
@@ -57,7 +61,6 @@ void Bin::add(Vector3D v) {
         temp = NULL; // temp is null
         size++;
     }
-    cout << index << size << endl;
 }
 
 
@@ -91,6 +94,10 @@ Bin Bin::operator=(Bin rhs){
     return rhs;
 }
 
+Vector3D Bin::operator[](int c) {
+    return bin[c];
+}
+
 
 ostream& operator<< (ostream& ostream , Bin& bin) {
     ostream << "----------------\n";
@@ -100,6 +107,7 @@ ostream& operator<< (ostream& ostream , Bin& bin) {
     }
     return ostream;
 }
+
 /*
 int main(){
     Bin b = Bin(5); 

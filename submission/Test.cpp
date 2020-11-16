@@ -13,7 +13,12 @@ using namespace std;
 #define TEST_Z 1
 #define SCALAR 3.5
 #define TEST_NO_VECTOR 12
+#define NO_BINS 6
 
+/*
+* Test definition
+*/
+struct testDefn {string testName; int passedCases;};
 
 /*
 * <-------------------------------------------------------------------------------------------------->
@@ -155,9 +160,6 @@ bool testUnitVector(Vector3D v, Vector3D expected);
 */
 bool testOrthogonal(Vector3D v, Vector3D v1, bool expected);
 
-struct testDefnVector3D {string testName; int passedCases;};
-
-
 bool testCompontentX(Vector3D v, float expected) {
     return (v.getX()==expected);
 }
@@ -225,30 +227,10 @@ Vector3D expectedUnit(float x, float y, float z) {
     return Vector3D(x/mag,y/mag,z/mag);
 }
 
-/*
-* <-------------------------------------------------------------------------------------------------->
-* 
-*                                       Testing Bin
-*
-* <-------------------------------------------------------------------------------------------------->
-*/
-
-int main () {
-    int numTest = 1000;
-    int componetX = 0;
-    int componetY = 0;
-    int componetZ = 0;
-    int magnitude = 0;
-    int addition = 0;
-    int subtraction = 0;
-    int mulitplyScalar = 0;
-    int divideScalar = 0;
-    int scalarProduct = 0;
-    int vectorProduct = 0;
-    int unitVector = 0;
-    int orthogonal = 0;
-
-    testDefnVector3D testVectors[TEST_NO_VECTOR] = {
+void runAllVectorTests() {
+    // These test includes normal, erronous values for each method
+        int numTest = 1000;
+    testDefn testVectors[TEST_NO_VECTOR] = {
         {"Testing componet x", 0},
         {"Testing componet y", 0},
         {"Testing componet z", 0},
@@ -273,54 +255,281 @@ int main () {
                     testVectors[0].passedCases++;
                 }
                 if (testCompontentY(v, y)) {
-                    componetY++;
+                    testVectors[1].passedCases++;
                 }
                 if (testCompontentZ(v, z)) {
-                    componetZ++;
+                    testVectors[2].passedCases++;
                 }
                 if (testMagnitude(v, expectedMagnitude(x,y,z))) {
-                    magnitude++;
+                    testVectors[3].passedCases++;
                 }
                 if (testAddition(v, test, Vector3D(x+TEST_X,y+TEST_Y,z+TEST_Z))){
-                    addition++;
+                    testVectors[4].passedCases++;
                 }
                 if (testSubtraction(v, test, Vector3D(x-TEST_X,y-TEST_Y,z-TEST_Z))){
-                    subtraction++;
+                    testVectors[5].passedCases++;
                 }
                 if (testMultiplyByScalar(v, SCALAR, Vector3D(x*SCALAR,y*SCALAR,z*SCALAR))){
-                    mulitplyScalar++;
+                    testVectors[6].passedCases++;
                 }
                 if (testDivideByScalar(v, SCALAR, Vector3D(x/SCALAR,y/SCALAR,z/SCALAR))){
-                    divideScalar++;
+                    testVectors[7].passedCases++;
                 }
                 if (testScalarProduct(v, test, x*TEST_X+y*TEST_Y+z*TEST_Z)){
-                    scalarProduct++;
+                    testVectors[8].passedCases++;
                 }
                 if (testVectorProduct(v, test, Vector3D(y*TEST_Z-z*TEST_Z, z*TEST_X-x*TEST_Z, x*TEST_Y-y*TEST_X))){
-                    vectorProduct++;
+                    testVectors[9].passedCases++;
                 }
                 if (testUnitVector(v,  expectedUnit(x ,y ,z) )){
-                    unitVector++;
+                    testVectors[10].passedCases++;
                 } 
                 if (testOrthogonal(v, test, (0==(x*TEST_X+y*TEST_Y+z*TEST_Z)) ) ){
-                    orthogonal++;
+                    testVectors[11].passedCases++;
                 } 
             }
         }
     }
-    cout << "Test Componet x:            " << testVectors[0].passedCases << "/" << numTest << endl;
-    cout << "Test Componet y:            " << componetY << "/" << numTest << endl;
-    cout << "Test Componet z:            " << componetZ << "/" << numTest << endl;
-    cout << "Test Magnitude:             " << magnitude << "/" << numTest << endl;
-    cout << "Test Addition:              " << addition << "/" << numTest << endl;
-    cout << "Test Subtract:              " << subtraction << "/" << numTest << endl;
-    cout << "Test Multiply Scalar:       " << mulitplyScalar << "/" << numTest << endl;
-    cout << "Test Divide Scalar:         " << mulitplyScalar << "/" << numTest << endl;
-    cout << "Test Scalar Product:        " << scalarProduct << "/" << numTest << endl;
-    cout << "Test Vector Product:        " << vectorProduct << "/" << numTest << endl;
-    cout << "Test Unit Vector:           " << unitVector << "/" << numTest << endl;
-    cout << "Test Orthogonal:            " << orthogonal << "/" << numTest << endl;
 
+    cout << "________________________________________________\n";
+    cout << "           TEST FOR VECTOR3D CLASS\n";
+    cout << "________________________________________________\n";
+    for (int i = 0; i<TEST_NO_VECTOR;i++){
+        cout << "------------------------------------------------\n";
+        cout << "       Test " << i << ": " << testVectors[i].testName << "\n";
+        cout << "   successfully completed " << testVectors[0].passedCases  << "/" << numTest << " test cases\n";
+        cout << "------------------------------------------------\n";
+        
+    }
+};
+
+
+/*
+* <-------------------------------------------------------------------------------------------------->
+* 
+*                                       Testing Bin
+*
+* <-------------------------------------------------------------------------------------------------->
+*/
+
+//Helper function below:
+
+/*
+* assertEqualsBin: A helper funtion. This is used to check whether two bins
+                   have the same value. Two bins are equal if they have the 
+*                  same class
+* Input:
+*   b (Bin): The bin provided by the class
+*   expected (Bin): The expected bin
+* Output:
+*   (bool) denotes if the two bins are equal
+*/
+bool assertEqualBin(Bin b, Bin expected);
+
+/*
+* add: A helper fundtion. This is used at add elements for a given
+*      bin
+* Input:
+*   b (Bin): The bin provided
+*   maxSize (int): The size of the bin
+* Output:
+*   (b): The bin added with the apprioate elements
+*/
+Bin add(Bin b,int maxSize);
+
+
+/*
+bool assertEqualBin(Bin b, Bin expected) {
+    if ( !(b.getSize()==expected.getSize()) && (b.getIndex()==expected.getIndex()) ) {
+        return false;
+    }
+    for (int i = 0; i<getSize(); i++) {
+        if ( !(b.getX(i)==expected.getX(i)) && (b.getY(i)==expected.getY(i)) && (b.getZ(i)==expected.getZ(i)) ) {
+            return false;
+        }
+    }
+    return true;
+}*/
+
+Bin add(Bin b, int maxSize) {
+    for (int i = 0; i<maxSize; i++){
+        b.add(Vector3D(i+1,TEST_Y,TEST_Z));
+    }
+    return b;
+}
+
+
+void runAllBinTests() {
+    Bin testBins[NO_BINS] = {
+        Bin(0),
+        Bin(1),
+        Bin(2),
+        Bin(3),
+        Bin(4),
+        Bin(5),
+    };
+
+    Bin testBins2[NO_BINS] = {
+        Bin(0),
+        Bin(1),
+        Bin(2),
+        Bin(3),
+        Bin(4),
+        Bin(5),
+    };
+
+    // Add function
+
+    /* normal values 
+    * Expected testBins[0] = Nothing
+    * 
+    * Expected testBins[1] = |(1,1,1)|
+    * 
+    * Expected testBins[2] = |(1,1,1)|
+    *                        |(2,1,1)|
+    * 
+    * Expected testBins[3] = |(1,1,1)|
+    *                        |(2,1,1)|
+    *                        |(3,1,1)|
+    * 
+    * Expected testBins[4] = |(1,1,1)|
+    *                        |(2,1,1)|
+    *                        |(3,1,1)|
+    *                        |(4,1,1)|
+    *
+    * Expected testBins[5] = |(1,1,1)|
+    *                        |(2,1,1)|
+    *                        |(3,1,1)|
+    *                        |(4,1,1)|
+    *                        |(5,1,1)|
+    */
+    for (int i=0; i<5;i++){ // cannnot do add
+        testBins[i] = add(testBins[i], i);
+        cout << "________________\n";
+        cout << "Test " << i << endl;
+        cout << testBins[i];
+        cout << "________________\n";
+    }
+
+    // out of range values
+    /*
+    * Expected testBins[0] = |(1,1,1)|
+    * 
+    * Expected testBins[1] = |(1,1,1)|
+    *                        |(2,1,1)|
+    * 
+    * Expected testBins[2] = |(1,1,1)|
+    *                        |(2,1,1)|
+    *                        |(3,1,1)|
+    * 
+    * Expected testBins[3] = |(1,1,1)|
+    *                        |(2,1,1)|
+    *                        |(3,1,1)|
+    *                        |(4,1,1)|
+    * 
+    * Expected testBins[4] = |(1,1,1)|
+    *                        |(2,1,1)|
+    *                        |(3,1,1)|
+    *                        |(4,1,1)|
+    *                        |(5,1,1)|
+    *
+    * Expected testBins[5] = |(1,1,1)|
+    *                        |(2,1,1)|
+    *                        |(3,1,1)|
+    *                        |(4,1,1)|
+    *                        |(5,1,1)|
+    *                        |(6,1,1)|
+    */
+    for (int i=0; i<NO_BINS;i++){
+        testBins2[i].add(Vector3D(i+1, TEST_Y,TEST_Z));
+        cout << testBins[i];
+    }
+
+    // Error Value
+    testBins[0] = Bin(1);
+    Vector3D v;
+    testBins[0].add(v);
+    
+
+    //Remove function
+
+    //normal values
+    /*
+    * Expected testBins[0] = 
+    * 
+    * Expected testBins[1] = 
+    * 
+    * Expected testBins[2] = |(1,1,1)|
+    * 
+    * Expected testBins[3] = |(1,1,1)|
+    *                        |(3,1,1)|
+    * 
+    * Expected testBins[4] = |(1,1,1)|
+    *                        |(2,1,1)|
+    *                        |(4,1,1)|
+    *
+    * Expected testBins[5] = |(1,1,1)|
+    *                        |(2,1,1)|
+    *                        |(4,1,1)|
+    *                        |(5,1,1)|
+    */
+    for (int i=0; i<NO_BINS;i++) {
+        testBins[i].remove(i/2);
+        cout << testBins[i];
+    }
+
+    //range values
+     /*
+    * Expected testBins[0] = |(1,1,1)|
+    * 
+    * Expected testBins[1] = |(1,1,1)|
+    *                        |(2,1,1)|
+    * 
+    * Expected testBins[2] = |(1,1,1)|
+    *                        |(2,1,1)|
+    *                        |(3,1,1)|
+    * 
+    * Expected testBins[3] = |(1,1,1)|
+    *                        |(2,1,1)|
+    *                        |(3,1,1)|
+    *                        |(4,1,1)|
+    * 
+    * Expected testBins[4] = |(1,1,1)|
+    *                        |(2,1,1)|
+    *                        |(3,1,1)|
+    *                        |(4,1,1)|
+    *                        |(5,1,1)|
+    *
+    * Expected testBins[5] = |(1,1,1)|
+    *                        |(2,1,1)|
+    *                        |(3,1,1)|
+    *                        |(4,1,1)|
+    *                        |(5,1,1)|
+    *                        |(6,1,1)|
+    */
+    for (int i=0; i<NO_BINS;i++) {
+        testBins2[i].remove(-1);
+        testBins2[i].remove(testBins2[i].getSize());
+        cout << testBins[i];
+    }
+
+    //error value
+    /*
+    * test1 = Nothing
+    * 
+    */
+    Bin test1 = Bin(5);
+    test1.remove(1);
+    cout << test1;
+
+
+}
+
+
+
+int main () {
+    runAllVectorTests();
+    runAllBinTests();
     return 0;
 
 

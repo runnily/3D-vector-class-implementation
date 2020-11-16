@@ -42,6 +42,13 @@ class Bin {
         virtual ~Bin();
 
         /*
+        * getIndex: To return index of bin
+        * Output:
+        *   (int): index of array
+        */
+        int getIndex();
+
+        /*
         * getSize: To return size of bin
         * Output:
         *   (int): Size of array
@@ -118,4 +125,4 @@ class Bin {
     
 };
 
-ostream& operator<< (ostream& ostr , const  Bin& Bin);
+ostream& operator<< (ostream& ostr , Bin& Bin);
