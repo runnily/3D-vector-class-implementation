@@ -18,6 +18,7 @@
         "chrono": "cpp",
         "iostream": "cpp",
         "functional": "cpp",
-        "memory": "cpp"
+        "memory": "cpp",
+        "ostream": "cpp"
     }
 }

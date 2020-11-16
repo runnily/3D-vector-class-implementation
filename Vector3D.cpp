@@ -28,7 +28,11 @@ float Vector3D::magnitude() {
 }
 
 Vector3D Vector3D::unit() {
-    return Vector3D(x/magnitude(),y/magnitude(),z/magnitude());
+    float mag = magnitude(); // When magnitude is 0
+    if (mag == 0) {
+        return Vector3D(0,0,0);
+    }
+    return Vector3D(x/mag,y/mag,z/mag);
 }
 
 bool Vector3D::orthogonal(Vector3D rhs) {
