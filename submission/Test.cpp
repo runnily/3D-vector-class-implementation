@@ -1,9 +1,9 @@
 #ifndef Test
 #define Test
 
-#include "Bin.h"
 #include <iostream>
 using namespace std;
+#include "Bin.h"
 #include <cmath>
 
 #endif
@@ -320,11 +320,12 @@ void runAllVectorTests() {
 *                  same class
 * Input:
 *   b (Bin): The bin provided by the class
-*   expected (Bin): The expected bin
+*   expectedIndex (Bin): The expected index of bin
+*   expectedSize (Bin): The expected index of size
 * Output:
 *   (bool) denotes if the two bins are equal
 */
-bool assertEqualBin(Bin b, Bin expected);
+bool assertEqualBin(Bin b, float expectedIndex, float expextedSize);
 
 /*
 * add: A helper fundtion. This is used at add elements for a given
@@ -338,18 +339,13 @@ bool assertEqualBin(Bin b, Bin expected);
 Bin add(Bin b,int maxSize);
 
 
-/*
-bool assertEqualBin(Bin b, Bin expected) {
-    if ( !(b.getSize()==expected.getSize()) && (b.getIndex()==expected.getIndex()) ) {
+
+bool assertEqualBin(Bin b, float expectedIndex, float expectedSize) {
+    if ( !(b.getSize()==expectedSize) && (b.getIndex()==expectedIndex) ) {
         return false;
-    }
-    for (int i = 0; i<getSize(); i++) {
-        if ( !(b.getX(i)==expected.getX(i)) && (b.getY(i)==expected.getY(i)) && (b.getZ(i)==expected.getZ(i)) ) {
-            return false;
-        }
-    }
+    }  
     return true;
-}*/
+}
 
 Bin add(Bin b, int maxSize) {
     for (int i = 0; i<maxSize; i++){
@@ -359,7 +355,32 @@ Bin add(Bin b, int maxSize) {
 }
 
 
+
+
 void runAllBinTests() {
+    testDefn testingBins[7] = {
+        {"Testing copy constructor", 0},
+        {"Testing assignment operator", 0},
+        {"Testing get componet x at ath", 0},
+        {"Testing get componet y at ath", 0},
+        {"Testing get componet z at ath", 0},
+        {"Testing get componet add at ath", 0},
+        {"Testing get componet remove at ath", 0},
+    };
+
+
+    testDefn testingBinsAdd[3] = {
+        {"Normal values - add elements within size range", 0},
+        {"Range values - add elements outside of size range", 0},
+        {"Error values - add elements which are not initialized", 0},
+    };
+
+    testDefn testingBinsRemove[3] = {
+        {"Normal values - remove elements within size range", 0},
+        {"Range values - remove elements outside of size range", 0},
+        {"Error values - remove elements which are not initialized", 0},
+    };
+
     Bin testBins[NO_BINS] = {
         Bin(0),
         Bin(1),
@@ -377,8 +398,178 @@ void runAllBinTests() {
         Bin(4),
         Bin(5),
     };
+    cout << "________________________________________________\n";
+    cout << "           TEST FOR BIN CLASS\n";
+    cout << "________________________________________________\n";
+
+
+    // copy constructor
+    cout << "------------------------------------------------\n";
+    cout << endl;
+    cout << testingBins[0].testName << endl;
+    cout << endl;
+    cout << "------------------------------------------------\n";
+
+
+    /*
+    * Expected pstTest = |(1,1,1)|
+    *                    |(2,1,1)|
+    *                    |(4,1,1)|
+    *                    |(5,1,1)|
+    * Expected cpyTest = |(1,1,1)|
+    *                    |(2,1,1)|
+    *                    |(3,1,1)|
+    *                    |(4,1,1)|
+    *                    |(5,1,1)|
+    * Expected -> when I remove an element
+    *             it does not directly affect 
+    *             element is was copied from.
+    */
+    {
+        Bin pstTest = Bin(5);
+        pstTest = add(pstTest, 5);
+        Bin cpyTest = pstTest; 
+        pstTest.remove(2);
+        cout << "---------------------Test 1 ---------------------\n";
+        cout << pstTest;
+        cout << cpyTest;
+        cout << "------------------------------------------------\n";
+    }
+
+
+    // assignment operator 
+    cout << "------------------------------------------------\n";
+    cout << endl;
+    cout << testingBins[1].testName << endl;
+    cout << endl;
+    cout << "------------------------------------------------\n";
+
+    {
+        /*Expected pstTest =  |(1,1,1)|
+        *                     |(2,1,1)|
+        *                     |(3,1,1)|
+        */
+        Bin pstTest = Bin(3);
+        pstTest = add(pstTest, 3);
+        cout << "---------------------Test 1 ---------------------\n";
+        cout << pstTest;
+        cout << "------------------------------------------------\n";
+
+    }
+    
+    //Error values
+    {
+        /*Expected pstTest =  |(1,1,1)|
+        *                     |(2,1,1)|
+        *                     |(3,1,1)|
+        */
+        cout << "Error values - assigning a Bin object into the same object" << ":" << endl;
+        Bin pstTest = Bin(3);
+        pstTest = add(pstTest, 3);
+        pstTest = pstTest;
+        cout << "---------------------Test 1 ---------------------\n";
+        cout << pstTest;
+        cout << "------------------------------------------------\n";
+    }
+
+    // get componet x method
+    cout << "------------------------------------------------\n";
+    cout << endl;
+    cout << testingBins[2].testName << endl;
+    cout << endl;
+    cout << "------------------------------------------------\n";
+    {
+        /*
+        * Expected: 3
+        */
+        Bin pstTest = Bin(3);
+        pstTest = add(pstTest, 3);
+        cout << "---------------------Test 1 ---------------------\n";
+        cout << pstTest.getX(2) << endl;
+        cout << "------------------------------------------------\n";
+    }
+
+    // Error value
+    {
+        /*
+        * Expected: 0.0
+        */
+        cout << "Range value - Input of data not within array length" << ":" << endl;
+        Bin pstTest = Bin(2);
+        pstTest = add(pstTest, 2);
+        cout << "---------------------Test 2 ---------------------\n";
+        cout << pstTest.getX(-1) << endl;
+        cout << "------------------------------------------------\n";
+
+    }
+
+    // get componet y method
+    cout << "------------------------------------------------\n";
+    cout << endl;
+    cout << testingBins[3].testName << endl;
+    cout << endl;
+    cout << "------------------------------------------------\n";
+    {
+        /*Expected: 1
+        */
+        Bin pstTest = Bin(1);
+        pstTest = add(pstTest, 2);
+        cout << "---------------------Test 1 ---------------------\n";
+        cout << pstTest.getY(1) << endl;
+        cout << "------------------------------------------------\n";
+
+    }
+
+    // Error value
+    {
+        /*
+        * Expected: 0.0
+        */
+        cout << "Range value - Input of data not within array length" << ":" << endl;
+        Bin pstTest = Bin(2);
+        pstTest = add(pstTest, 2);
+        cout << "---------------------Test 2 ---------------------\n";
+        cout << pstTest.getZ(2) << endl;
+        cout << "------------------------------------------------\n";
+
+    }
+
+    // get componet z method
+    cout << "------------------------------------------------\n";
+    cout << endl;
+    cout << testingBins[4].testName << endl;
+    cout << endl;
+    cout << "------------------------------------------------\n";
+    {
+        /*Expected: 1
+        */
+        Bin pstTest = Bin(1);
+        pstTest = add(pstTest, 2);
+        cout << "---------------------Test 1 ---------------------\n";
+        cout << pstTest.getZ(0) << endl;
+        cout << "------------------------------------------------\n";
+
+    }
+     // Error value
+    {
+        /*
+        * Expected: 0.0
+        */
+        cout << "Range value - Input of data not within array length" << ":" << endl;
+        Bin pstTest = Bin(3);
+        pstTest = add(pstTest, 2);
+        cout << "---------------------Test 2 ---------------------\n";
+        cout << pstTest.getZ(5) << endl;
+        cout << "------------------------------------------------\n";
+
+    }
 
     // Add function
+    cout << "------------------------------------------------\n";
+    cout << endl;
+    cout << testingBins[5].testName << endl;
+    cout << endl;
+    cout << "------------------------------------------------\n";
 
     /* normal values 
     * Expected testBins[0] = Nothing
@@ -403,13 +594,13 @@ void runAllBinTests() {
     *                        |(4,1,1)|
     *                        |(5,1,1)|
     */
-    for (int i=0; i<5;i++){ // cannnot do add
-        testBins[i] = add(testBins[i], i);
-        cout << "________________\n";
-        cout << "Test " << i << endl;
+    cout << testingBinsAdd[0].testName << ":" << endl;
+    for (int i=0; i<NO_BINS;i++){ // cannnot do add
+        testBins[i] = add(testBins[i], i); //asignment operator
+        cout << "---------------------Test "<< i << " ---------------------\n";
         cout << testBins[i];
-        cout << "________________\n";
     }
+    cout << "------------------------------------------------\n";
 
     // out of range values
     /*
@@ -440,18 +631,33 @@ void runAllBinTests() {
     *                        |(5,1,1)|
     *                        |(6,1,1)|
     */
+    cout << "------------------------------------------------\n";
+    cout << endl;
+    cout << testingBinsAdd[1].testName << endl;
+    cout << endl;
     for (int i=0; i<NO_BINS;i++){
-        testBins2[i].add(Vector3D(i+1, TEST_Y,TEST_Z));
-        cout << testBins[i];
+        cout << "---------------------Test "<< i << " ---------------------\n";
+        testBins2[i] = add(testBins2[i], i+1);
+        cout << testBins2[i];
     }
+    cout << "------------------------------------------------\n";
 
     // Error Value
+    cout << testingBinsAdd[2].testName << endl;
     testBins[0] = Bin(1);
     Vector3D v;
     testBins[0].add(v);
+    cout << "---------------------Test 1 ---------------------\n";
+    cout << testBins[0];
+    cout << "------------------------------------------------\n";
     
 
     //Remove function
+    cout << "------------------------------------------------\n";
+    cout << endl;
+    cout << testingBins[6].testName << endl;
+    cout << endl;
+    cout << "------------------------------------------------\n";
 
     //normal values
     /*
@@ -473,10 +679,13 @@ void runAllBinTests() {
     *                        |(4,1,1)|
     *                        |(5,1,1)|
     */
+   cout << testingBinsRemove[0].testName << ":" << endl;
     for (int i=0; i<NO_BINS;i++) {
+        cout << "---------------------Test "<< i << " ---------------------\n";
         testBins[i].remove(i/2);
         cout << testBins[i];
     }
+    cout << "------------------------------------------------\n";
 
     //range values
      /*
@@ -507,28 +716,38 @@ void runAllBinTests() {
     *                        |(5,1,1)|
     *                        |(6,1,1)|
     */
+   cout << testingBinsRemove[1].testName << ":" << endl;
     for (int i=0; i<NO_BINS;i++) {
+        cout << "---------------------Test "<< i << " ---------------------\n";
         testBins2[i].remove(-1);
         testBins2[i].remove(testBins2[i].getSize());
-        cout << testBins[i];
+        cout << testBins2[i];
     }
+    cout << "------------------------------------------------\n";
 
     //error value
+
     /*
-    * test1 = Nothing
-    * 
+    * Expected test = |0,0,0|
+    *                 |0,0,0|
+    *                 |0,0,0|
+    *                 |0,0,0| 
     */
-    Bin test1 = Bin(5);
+    cout << testingBinsRemove[2].testName << ":" << endl;
+    Bin test1 = Bin(4);
     test1.remove(1);
+    cout << "---------------------Test 1 ---------------------\n";
     cout << test1;
+    cout << "------------------------------------------------\n";
 
 
 }
 
-
-
 int main () {
     runAllVectorTests();
+    cout << endl;
+    cout << endl;
+    cout << endl;
     runAllBinTests();
     return 0;
 

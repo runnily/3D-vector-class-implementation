@@ -8,6 +8,7 @@
 using namespace std;
 #define SIZE 3
 
+
 class Vector3D {
 
     public: 

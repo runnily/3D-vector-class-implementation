@@ -16,6 +16,7 @@ using namespace std;
 #endif
 
 #define EMPTY 0
+#define INIT 1
 
 class Bin {
 
@@ -61,6 +62,7 @@ class Bin {
         *   a (int): The postion of vector within bin
         * Output:
         *   (float): This would return the x componets in position a
+        *            or 0.0 if ath value does not exits
         */
         float getX(int a);
 
@@ -70,6 +72,7 @@ class Bin {
         *   a (int): The postion of vector within bin
         * Output:
         *   (float): This would return the y componets in position a
+        *            or 0.0 if ath value does not exits
         */
         float getY(int a);
 
@@ -79,6 +82,7 @@ class Bin {
         *   a (int): The postion of vector within bin
         * Output:
         *   (float): This would return the z componets in position a
+        *            or 0.0 if ath value does not exits
         */
         float getZ(int a);
 
@@ -119,10 +123,21 @@ class Bin {
         Vector3D *bin;
         int size;
         int index;
+        int init;
 
-        void vectorCpy(Vector3D cpy[], int index, int size);
+        /*
+        * vectorCpy: To paste content from vector pst to vector cpy
+        * Input:
+        *   cpy (Vector3D[]): An array off vector which caries the pasted contents.
+        *   pst (Vector3D[]): An array off vector which you want to copy from and paste into vector
+        *                     cpy
+        *   size (int): The size of the vector
+        */
+        void vectorCpy(Vector3D cpy[], Vector3D pst[],int index, int size);
 
     
 };
-
+/*
+* Operator>>: To define the string output
+*/
 ostream& operator<< (ostream& ostr , Bin& Bin);

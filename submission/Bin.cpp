@@ -12,11 +12,11 @@
 
 #endif
 
-Bin::Bin(int num):size(num),index(EMPTY-1) {
+Bin::Bin(int num):size(num),index(EMPTY-1),init(INIT) {
     bin = new Vector3D[size];
 }
 
-Bin::Bin(const Bin &bincpy):size(bincpy.size),index(bincpy.index) {
+Bin::Bin(const Bin &bincpy):size(bincpy.size),index(bincpy.index),init(INIT)  {
     bin = new Vector3D[bincpy.size];
     for (int i = 0; i<bincpy.size; i++) {
         bin[i] = bincpy.bin[i];
@@ -26,6 +26,7 @@ Bin::Bin(const Bin &bincpy):size(bincpy.size),index(bincpy.index) {
 Bin::~Bin() {
     delete bin; 
     bin = NULL;
+
 }
 
 int Bin::getIndex() {
@@ -37,15 +38,24 @@ int Bin::getSize() {
 }
 
 float Bin::getX(int a) {
-    return bin[a].getX();
+    if ((a >= EMPTY) && (a < size )) {
+        return bin[a].getX();
+    }
+    return 0.0f;
 }
 
 float Bin::getY(int a) {
-    return bin[a].getY();
+    if ((a >= EMPTY) && (a < size )) {
+        return bin[a].getY();
+    }
+    return 0.0f;
 }
 
 float Bin::getZ(int a) {
-    return bin[a].getZ();
+    if ((a >= EMPTY) && (a < size )) {
+        return bin[a].getZ();
+    }
+    return 0.0f;
 }
 
 void Bin::add(Vector3D v) {
@@ -55,7 +65,7 @@ void Bin::add(Vector3D v) {
     } else {
         Vector3D * temp = new Vector3D[size+1]; //increase size
         temp[size] = v; // new element added in
-        vectorCpy(temp, 0, size);
+        vectorCpy(temp, bin, 0, size);
         delete[] bin; // release old array
         bin = temp; // point to temp
         temp = NULL; // temp is null
@@ -70,7 +80,7 @@ void Bin::remove(int b) {
             index--;
             size--;
             Vector3D * temp = new Vector3D[size];
-            vectorCpy(temp, 0, b); // copy first half elements across
+            vectorCpy(temp, bin, 0, b); // copy first half elements across
             for (int i = b; i<size;i++) { // copy second half across
                 temp[i] = bin[i+1];
             }
@@ -81,17 +91,26 @@ void Bin::remove(int b) {
     }
 }
 
-void Bin::vectorCpy(Vector3D cpy[], int index, int size){
+void Bin::vectorCpy(Vector3D cpy[], Vector3D pst[], int index, int size){
     for (int i = index; i<size; i++) {
-        cpy[i] = bin[i];
+        cpy[i] = pst[i];
     }
 }
 
 
 Bin Bin::operator=(Bin rhs){
-    delete[] bin; // delete bin
-    bin = NULL; // ensure bin is null
-    return rhs;
+    if (rhs.init) {
+        if (this == &rhs){
+            return *this;
+        }
+        size = rhs.size;
+        index = rhs.index;
+        delete[] bin; // delete allocated memory
+        bin = new Vector3D[size]; // create a new vector with size
+        vectorCpy(bin, rhs.bin, 0, size);
+        return *this;
+    }
+    return *this;
 }
 
 Vector3D Bin::operator[](int c) {
@@ -100,11 +119,13 @@ Vector3D Bin::operator[](int c) {
 
 
 ostream& operator<< (ostream& ostream , Bin& bin) {
-    ostream << "----------------\n";
+    ostream << endl;
     for (int i = 0; i<bin.getSize(); i++) {
+        ostream << "****************\n";
         ostream << "|    "<<"(" << bin.getX(i) << "," << bin.getY(i) << "," <<  bin.getZ(i)<< ")" << "    |\n";
-        ostream << "----------------\n";
+        ostream << "****************\n";
     }
+    ostream << endl;
     return ostream;
 }
 
