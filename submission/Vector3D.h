@@ -4,8 +4,12 @@
     @author Adanna Obibuaku
     @date 14/11/20
 */
+#ifndef IO
+#define IO
 #include <iostream>
 using namespace std;
+#endif
+
 #define SIZE 3
 
 

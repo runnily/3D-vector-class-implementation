@@ -1,6 +1,7 @@
 # Mac
 .DS_STORE
 .vscode
+/.vscode
 
 # Prerequisites
 *.d

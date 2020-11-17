@@ -4,8 +4,8 @@
     @author Adanna Obibuaku
     @date 14/11/20
 */
-#ifndef binHeader
-#define binHeader
+#ifndef BIN_HEADER
+#define BIN_HEADER
 
 #include "Bin.h"
 

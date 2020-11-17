@@ -3,17 +3,13 @@
 
 #include <iostream>
 using namespace std;
-#include "Bin.h"
+#include "TestBin.h"
+#include "TestVector3D.h"
 #include <cmath>
 
 #endif
 
-#define TEST_X 1
-#define TEST_Y 1
-#define TEST_Z 1
-#define SCALAR 3.5
-#define TEST_NO_VECTOR 12
-#define NO_BINS 6
+
 
 /*
 * Test definition
@@ -28,137 +24,6 @@ struct testDefn {string testName; int passedCases;};
 * <-------------------------------------------------------------------------------------------------->
 */
 
-
-// Our Test classes:
-/*
-* testComponetentX: To test whether the getX() method in the vector class returns the correct
-*                   X componet
-* Input:
-*   v (Vector3D): The vector your testing 
-*   expected (float): Your expected x componets
-* Output:   
-*   (bool): denotes if the x returned from Vector3D is the same as expected
-*/
-bool testCompontentX(Vector3D v, float expected);
-
-/*
-* testComponetentY: To test whether the getY() method in the vector class returns the correct
-*                   Y componet
-* Input:
-*   v (Vector3D): The vector your testing 
-*   expected (float): Your expected y componets
-* Output:   
-*   (bool): denotes if the y returned from Vector3D is the same as expected
-*/
-bool testCompontentY(Vector3D v, float expected);
-
-/*
-* testComponetentZ: To test whether the getZ() method in the vector class returns the correct
-*                   Z componet
-* Input:
-*   v (Vector3D): The vector your testing 
-*   expected (float): Your expected x componets
-* Output:   
-*   (bool): denotes if the z returned from Vector3D is the same as expected
-*/
-bool testCompontentZ(Vector3D v, float expected);
-
-/*
-* testMagnitude: Testing the magnitude function in the vector class
-* Input:
-*   v (Vector3D): The vector your testing 
-*   expected (float): Your expected magnitude
-* Output:   
-*   (bool): denotes if the magnitude function provided by Vector3D is expected
-*/
-bool testMagnitude(Vector3D v, float expected);
-
-/*
-* testAddition: Testing the addition operator in the vector class
-* Input:
-*   v (Vector3D): The vector your testing
-*   v1 (Vector3D): The vector to be added
-*   expected (Vector3D): The expected Vector
-* Output:   
-*   (bool): denotes if the addition operator provided by Vector3D is expected
-*/
-bool testAddition(Vector3D v, Vector3D v1, Vector3D expected);
-
-/*
-* testSubtraction: Testing the subtraction operator in the vector class
-* Input:
-*   v (Vector3D): The vector your testing
-*   v1 (Vector3D): The vector to be subtracted
-*   expected (Vector3D): The expected Vector
-* Output:   
-*   (bool): denotes if the subtraction operator provided by Vector3D is expected
-*/
-bool testSubtraction(Vector3D v, Vector3D v1, Vector3D expected);
-
-/*
-* testMulitplyByScalar: Testing the muplication scalar operator in the vector class
-* Input:
-*   v (Vector3D): The vector your testing
-*   scalar (float): The scalar to be applied
-*   expected (Vector3D): The expected Vector
-* Output:   
-*   (bool): denotes if the muplication scalar operator provided by Vector3D is expected
-*/
-bool testMultiplyByScalar(Vector3D v, float scalar, Vector3D expected);
-
-/*
-* testDivideByScalar: Testing the division scalar operator in the vector class
-* Input:
-*   v (Vector3D): The vector your testing
-*   scalar (float): The scalar to be applied
-*   expected (Vector3D): The expected Vector
-* Output:   
-*   (bool): denotes if the division scalar operator provided by Vector3D is expected
-*/
-bool testDivideByScalar(Vector3D v, float scalar, Vector3D expected);
-
-/*
-* testScalarProduct: Testing the scalar product operator in the vector class
-* Input:
-*   v (Vector3D): The vector your testing
-*   v1 (Vector3D): The vector to apply with scalar product of v
-*   expected (float): The expected scalar product
-* Output:   
-*   (bool): denotes if the scalar product operator provided by Vector3D is expected
-*/
-bool testScalarProduct(Vector3D v, Vector3D v1, float expected);
-
-/*
-* testVectorProduct: Testing the vector product operator in the vector class
-* Input:
-*   v (Vector3D): The vector your testing
-*   v1 (Vector3D): The vector to apply with scalar product of v
-*   expected (Vector3D): The expected vector product
-* Output:   
-*   (bool): denotes if the vector product operator provided by Vector3D is expected
-*/
-bool testVectorProduct(Vector3D v, Vector3D v1, Vector3D expected);
-
-/*
-* testUnitVector: Testing the unit function  in the vector class
-* Input:
-*   v (Vector3D): The vector your testing
-*   expected (Vector3D): The expected  unit vector
-* Output:   
-*   (bool): denotes if the unit vector provided by Vector3D is expected
-*/
-bool testUnitVector(Vector3D v, Vector3D expected);
-
-/*
-* testOrthogonal: Testing the vector product operator in the vector class
-* Input:
-*   v (Vector3D): The vector your testing
-*   v1 (Vector3D): The vector to check if its perpendicular
-*   bool (Vector3D): The exppected boolean
-* Output:   
-*   (bool): denotes if the vector product operator provided by Vector3D is expected
-*/
-bool testOrthogonal(Vector3D v, Vector3D v1, bool expected);
 
 bool testCompontentX(Vector3D v, float expected) {
     return (v.getX()==expected);
@@ -312,210 +177,6 @@ void runAllVectorTests() {
 * <-------------------------------------------------------------------------------------------------->
 */
 
-//Helper function below:
-
-/*
-* assertEqualsBin: A helper funtion. This is used to check whether two bins
-                   have the same value. Two bins are equal if they have the 
-*                  same class
-* Input:
-*   b (Bin): The bin provided by the class
-*   expectedIndex (Bin): The expected index of bin
-*   expectedSize (Bin): The expected index of size
-* Output:
-*   (bool) denotes if the two bins are equal
-*/
-bool assertEqualBin(Bin b, float expectedIndex, float expextedSize);
-
-/*
-* add: A helper fundtion. This is used at add elements for a given
-*      bin
-* Input:
-*   b (Bin): The bin provided
-*   maxSize (int): The size of the bin
-* Output:
-*   (b): The bin added with the apprioate elements
-*/
-Bin add(Bin b,int maxSize);
-
-/*
-* testCpyConstructor: Testing the copy constructor within Bin class.
-* Expected pstTest = |(1,1,1)|
-*                    |(2,1,1)|
-*                    |(4,1,1)|
-*                    |(5,1,1)|
-* Expected cpyTest = |(1,1,1)|
-*                    |(2,1,1)|
-*                    |(3,1,1)|
-*                    |(4,1,1)|
-*                    |(5,1,1)|
-* Expected -> When I remove an element from an object bin
-*             it does not directly affect/change prior bin
-*             object is was copied from.
-*/
-bool testCpyConstructor();
-
-/*
-* TestAssignmentOp: testing the assignment operator in Bin class
-* Expected normalTest =  |(1,1,1)|
-*                        |(2,1,1)|
-*                        |(3,1,1)|
-*
-* Expected errorTest =   |(1,1,1)|
-*                        |(2,1,1)|
-* Expected -> (Normal)
-*             When I assign a Bin object to a Bin object it returns
-*             The correct bin. 
-*             (Error)
-*             When I assign a Bin object to the same
-*             Bin object it returns the same Bin Object
-*/
-bool testAssignmentOp();
-
-/*
-* testXComponet: testing the getX() function in Bin class
-* Expected normal: 3        Input: getX(2)      Enviroment: (Size = 3)
-* Expected range: 0.0       Input: getX(-1)
-*/
-bool testXComponetBin();
-
-/*
-* testYComponet: testing the getY() function in Bin class
-* Expected normal: 1        Input: getX(1)      Enviroment: (Size = 2)
-* Expected range: 0.0       Input: getX(2)
-*/
-bool testYComponetBin();
-
-/*
-* testZComponet: testing the getZ() function in Bin class
-* Expected normal: 2        Input: getZ(1)      Enviorment: (Size = 2 )
-* Expected range: 0.0       Input: getZ(5)
-*/
-bool testZComponetBin();
-
-/*
-* testAddBin: testing add function in the Bin class
-* normal values: We have bin sizes of 6 Test Bin objects which have the sizes
-*                n = 0, 1, 2, 3 ,4, 5 respectivly. We are testing that that the
-*                add function works correctly to add nth number of elements when 
-*                our bin size is within range. 
-*                
-* Expected testBins[0] = Nothing 
-* 
-* Expected testBins[1] = |(1,1,1)| 
-* 
-* Expected testBins[2] = |(1,1,1)| 
-*                        |(2,1,1)|
-* 
-* Expected testBins[3] = |(1,1,1)| 
-*                        |(2,1,1)|
-*                        |(3,1,1)|
-* 
-* Expected testBins[4] = |(1,1,1)|
-*                        |(2,1,1)|
-*                        |(3,1,1)|
-*                        |(4,1,1)|
-*
-* Expected testBins[5] = |(1,1,1)|
-*                        |(2,1,1)|
-*                        |(3,1,1)|
-*                        |(4,1,1)|
-*                        |(5,1,1)|
-* range values: We have bin sizes of 6 test Bin objects which have the the sizes
-*               n = 0, 1, 2, 3, 4, 5 respectivly. We are testing that the add function
-*               works correctly to add n+1th number off elements when our bin size
-*               is out of range.
-* Expected testBins2[0] = |(1,1,1)|
-* 
-* Expected testBins2[1] = |(1,1,1)|
-*                         |(2,1,1)|
-* 
-* Expected testBins2[2] = |(1,1,1)|
-*                         |(2,1,1)|
-*                         |(3,1,1)|
-* 
-* Expected testBins2[3] = |(1,1,1)|
-*                         |(2,1,1)|
-*                         |(3,1,1)|
-*                         |(4,1,1)|
-* 
-* Expected testBins2[4] = |(1,1,1)|
-*                         |(2,1,1)|
-*                         |(3,1,1)|
-*                         |(4,1,1)|
-*                         |(5,1,1)|
-*
-* Expected testBins2[5] = |(1,1,1)|
-*                         |(2,1,1)|
-*                         |(3,1,1)|
-*                         |(4,1,1)|
-*                         |(5,1,1)|
-*                         |(6,1,1)|
-*/
-bool testAddBin();
-
-
-/*
-* testRemoveBin: Testing the remove function in Bin class
-*
-* normal values: Testing we can remove element, when elements exits within the 
-*                Bin object.
-* Expected testBins[0] = 
-* 
-* Expected testBins[1] = 
-* 
-* Expected testBins[2] = |(1,1,1)|
-* 
-* Expected testBins[3] = |(1,1,1)|
-*                        |(3,1,1)|
-* 
-* Expected testBins[4] = |(1,1,1)|
-*                        |(2,1,1)|
-*                        |(4,1,1)|
-*
-* Expected testBins[5] = |(1,1,1)|
-*                        |(2,1,1)|
-*                        |(4,1,1)|
-*                        |(5,1,1)|
-*
-* range values: Testing remove function works correctly, when the element specified
-*               to be removed is not within the range of bin size.
-*
-* Expected testBins[0] = |(1,1,1)|
-* 
-* Expected testBins[1] = |(1,1,1)|
-*                        |(2,1,1)|
-* 
-* Expected testBins[2] = |(1,1,1)|
-*                        |(2,1,1)|
-*                        |(3,1,1)|
-* 
-* Expected testBins[3] = |(1,1,1)|
-*                        |(2,1,1)|
-*                        |(3,1,1)|
-*                        |(4,1,1)|
-* 
-* Expected testBins[4] = |(1,1,1)|
-*                        |(2,1,1)|
-*                        |(3,1,1)|
-*                        |(4,1,1)|
-*                        |(5,1,1)|
-*
-* Expected testBins[5] = |(1,1,1)|
-*                        |(2,1,1)|
-*                        |(3,1,1)|
-*                        |(4,1,1)|
-*                        |(5,1,1)|
-*                        |(6,1,1)|
-*
-* Error test: Testing the remove function works correctly, when we try to remove
-*             from a bin, which has no elements.
-* Expected test = |0,0,0|
-*                 |0,0,0|
-*                 |0,0,0|
-*                 |0,0,0| 
-*/
-bool testRemoveBin();
 
 bool assertEqualBin(Bin b, float expectedIndex, float expectedSize) {
     if ( !(b.getSize()==expectedSize) && (b.getIndex()==expectedIndex) ) {
@@ -721,7 +382,7 @@ bool testRemoveBin() {
 
 void runAllBinTests() {
     bool pass = true;
-    testDefn testingBins[7] = {
+    testDefn testingBins[NO_BIN_TEST] = {
         {"TEST COPY CONSTRUCTOR", 0},
         {"TEST ASSIGNMENT OPERATOR", 0},
         {"TEST GET X FUNCTION", 0},
@@ -735,7 +396,7 @@ void runAllBinTests() {
     cout << "           TEST FOR BIN CLASS\n";
     cout << "________________________________________________\n";
 
-    for (int i = 0; i<7; i++){
+    for (int i = 0; i<NO_BIN_TEST; i++){
         cout << "================================================\n";
         cout << endl;
         string testName = testingBins[i].testName;

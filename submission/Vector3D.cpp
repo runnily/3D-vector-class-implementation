@@ -4,13 +4,13 @@
     @author Adanna Obibuaku
     @date 14/11/20
 */
-#ifndef vect
-#define vect
+#ifndef VECT_HEADER
+#define VECT_HEADER
 
 #include "Vector3D.h"
-#include <cmath>
-
 #endif
+
+#include <cmath>
 
 const float Vector3D::DEFAULT_X =  0;
 const float Vector3D::DEFAULT_Y =  0;

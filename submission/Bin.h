@@ -1,18 +1,20 @@
-/**
-    Vector: The bin interface 
+/*
+    Bin: The bin interface 
     @file vector3D.h
     @author Adanna Obibuaku
     @date 14/11/20
 */
 
-#ifndef vect
-#define vect
-
+#ifndef VECT_HEADER
+#define VECT_HEADER
 #include "Vector3D.h"
+#endif
+
+#ifndef IO
+#define IO
 #include <iostream>
 using namespace std;
 #include <iomanip>
-
 #endif
 
 #define EMPTY 0
