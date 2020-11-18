@@ -403,39 +403,27 @@ void runAllBinTests() {
         cout << testName << endl;
         if (i==0) {
             pass = testCpyConstructor();
-            cout << endl;
-            cout << testName << " has passed: " << boolalpha << pass;
         }
         if (i==1) {
             pass = testAssignmentOp();
-            cout << endl;
-            cout << testName << " has passed: " << boolalpha << pass;
         }
         if (i==2) {
             pass = testXComponetBin();
-            cout << endl;
-            cout << testName << " has passed: " << boolalpha << pass << endl;
         }
         if (i==3) {
             pass = testYComponetBin();
-            cout << endl;
-            cout << testName << " has passed: " << boolalpha << pass << endl;
         }
         if (i==4) {
             pass = testZComponetBin();
-            cout << endl;
-            cout << testName << " has passed: " << boolalpha << pass << endl;
         }
         if (i==5) {
             pass = testAddBin();
-            cout << endl;
-            cout << testName << " has passed: " << boolalpha << pass << endl;
         }
         if (i==6) {
-            pass = testAddBin();
-            cout << endl;
-            cout << testName << " has passed: " << boolalpha << pass << endl;
+            pass = testRemoveBin();
         }
+        cout << endl; // put this at the end
+        cout << testName << " has passed: " << boolalpha << pass;
         cout << endl;
         cout << "================================================\n";
 

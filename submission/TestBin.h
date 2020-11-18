@@ -91,7 +91,7 @@ bool testZComponetBin();
 * testAddBin: testing add function in the Bin class
 * normal values: We have bin sizes of 6 Test Bin objects which have the sizes
 *                n = 0, 1, 2, 3 ,4, 5 respectivly. We are testing that that the
-*                add function works correctly to add nth number of elements when 
+*                add function works correctly to add n number of elements when 
 *                our bin size is within range. 
 *                
 * Expected testBins[0] = Nothing 
@@ -117,7 +117,7 @@ bool testZComponetBin();
 *                        |(5,1,1)|
 * range values: We have bin sizes of 6 test Bin objects which have the the sizes
 *               n = 0, 1, 2, 3, 4, 5 respectivly. We are testing that the add function
-*               works correctly to add n+1th number off elements when our bin size
+*               works correctly to add n+1 number off elements when our bin size
 *               is out of range.
 * Expected testBins2[0] = |(1,1,1)|
 * 
