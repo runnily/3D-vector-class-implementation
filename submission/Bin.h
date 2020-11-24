@@ -9,7 +9,7 @@
 #define VECT_HEADER
 #include "Vector3D.h"
 #endif
-
+ 
 #ifndef IO
 #define IO
 #include <iostream>

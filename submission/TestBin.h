@@ -120,31 +120,42 @@ bool testZComponetBin();
 *               works correctly to add n+1 number off elements when our bin size
 *               is out of range.
 * Expected testBins2[0] = |(1,1,1)|
+*                         |(0,0,0)|
 * 
 * Expected testBins2[1] = |(1,1,1)|
 *                         |(2,1,1)|
-* 
+*                           
 * Expected testBins2[2] = |(1,1,1)|
 *                         |(2,1,1)|
 *                         |(3,1,1)|
-* 
+*                         |(0,0,0)|
+*       
 * Expected testBins2[3] = |(1,1,1)|
 *                         |(2,1,1)|
 *                         |(3,1,1)|
 *                         |(4,1,1)|
-* 
+*                         |(0,0,0)|
+*                         |(0,0,0)|
+*
 * Expected testBins2[4] = |(1,1,1)|
 *                         |(2,1,1)|
 *                         |(3,1,1)|
 *                         |(4,1,1)|
 *                         |(5,1,1)|
-*
+*                         |(0,0,0)|
+*                         |(0,0,0)|
+*                         |(0,0,0)|
+*                       
 * Expected testBins2[5] = |(1,1,1)|
 *                         |(2,1,1)|
 *                         |(3,1,1)|
 *                         |(4,1,1)|
 *                         |(5,1,1)|
 *                         |(6,1,1)|
+*                         |(0,0,0)|
+*                         |(0,0,0)|
+*                         |(0,0,0)|
+*                         |(0,0,0)|
 */
 bool testAddBin();
 
@@ -173,27 +184,35 @@ bool testAddBin();
 *                        |(5,1,1)|
 *
 * range values: Testing remove function works correctly, when the element specified
-*               to be removed is not within the range of bin size.
+*               to be removed is not within the range of bin size. The Bin should
+*               not change
 *
 * Expected testBins[0] = |(1,1,1)|
-* 
+*                        |(0,0,0)|
+*
 * Expected testBins[1] = |(1,1,1)|
 *                        |(2,1,1)|
 * 
 * Expected testBins[2] = |(1,1,1)|
 *                        |(2,1,1)|
 *                        |(3,1,1)|
+*                        |(0,0,0)|
 * 
 * Expected testBins[3] = |(1,1,1)|
 *                        |(2,1,1)|
 *                        |(3,1,1)|
 *                        |(4,1,1)|
+*                        |(0,0,0)|
+*                        |(0,0,0)|
 * 
 * Expected testBins[4] = |(1,1,1)|
 *                        |(2,1,1)|
 *                        |(3,1,1)|
 *                        |(4,1,1)|
 *                        |(5,1,1)|
+*                        |(0,0,0)|
+*                        |(0,0,0)|
+*                        |(0,0,0)|
 *
 * Expected testBins[5] = |(1,1,1)|
 *                        |(2,1,1)|
@@ -201,6 +220,10 @@ bool testAddBin();
 *                        |(4,1,1)|
 *                        |(5,1,1)|
 *                        |(6,1,1)|
+*                        |(0,0,0)|
+*                        |(0,0,0)|
+*                        |(0,0,0)|
+*                        |(0,0,0)|
 *
 * Error test: Testing the remove function works correctly, when we try to remove
 *             from a bin, which has no elements.

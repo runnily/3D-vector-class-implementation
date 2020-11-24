@@ -9,8 +9,8 @@
 
 #include "Bin.h"
 
-
 #endif
+
 
 Bin::Bin(int num):size(num),index(EMPTY-1),init(INIT) {
     bin = new Vector3D[size];
@@ -59,17 +59,23 @@ float Bin::getZ(int a) {
 }
 
 void Bin::add(Vector3D v) {
-    index++;
+    index++; /// 0
     if (index < size) { 
         bin[index] = v;
     } else {
-        Vector3D * temp = new Vector3D[size+1]; //increase size
-        temp[size] = v; // new element added in
-        vectorCpy(temp, bin, 0, size);
+        Vector3D * temp;
+        if (size == 0){
+            temp = new Vector3D[2];
+            size = 1;
+        } else {
+            temp = new Vector3D[size*2]; //increase size
+            vectorCpy(temp, bin, 0, size);
+        }
+        temp[index] = v; // new element added in
         delete[] bin; // release old array
         bin = temp; // point to temp
         temp = NULL; // temp is null
-        size++;
+        size = size*2;
     }
 }
 
@@ -134,3 +140,4 @@ int main(){
     Bin b = Bin(5); 
     cout << b;
 }*/
+

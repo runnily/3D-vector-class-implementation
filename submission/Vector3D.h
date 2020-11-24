@@ -142,4 +142,3 @@ class Vector3D {
 };
 
 ostream& operator<< (ostream& ostream , Vector3D& v);
-    

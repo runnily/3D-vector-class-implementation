@@ -166,7 +166,7 @@ void runAllVectorTests() {
         cout << "------------------------------------------------\n";
         
     }
-};
+}
 
 
 /*
@@ -185,7 +185,7 @@ bool assertEqualBin(Bin b, float expectedIndex, float expectedSize) {
     return true;
 }
 
-Bin add(Bin b, int maxSize) {
+Bin add(Bin b, int maxSize) { 
     for (int i = 0; i<maxSize; i++){
         b.add(Vector3D(i+1,TEST_Y,TEST_Z));
     }
@@ -214,7 +214,7 @@ bool testAssignmentOp()  {
     cout << "Error values - assigning a Bin object into the same object" << ":" << endl;
     Bin errorTest = Bin(1);
     errorTest = add(errorTest, 2);
-    errorTest = errorTest;
+    errorTest = errorTest; // generates a warning but for testing purposes so ignore
     cout << "---------------------Test 2 ---------------------\n";
     cout << errorTest;
     cout << "------------------------------------------------\n";
@@ -321,16 +321,16 @@ bool testAddBin() {
     cout << endl;
     cout << testingBinsAdd[1].testName << endl;
     cout << endl;
-    for (int i=0; i<NO_BINS;i++){
+    for (int i=0; i<NO_BINS;i++){ // 0,1,2,3,4,5
         cout << "---------------------Test "<< i << " ---------------------\n";
-        testBins2[i] = add(testBins2[i], i+1);
+        testBins2[i] = add(testBins2[i], i+1); // 0,0
         cout << testBins2[i];
         pass = pass && assertEqualBin(testBins[2], i, i+1);
     }
     cout << "------------------------------------------------\n";
     return pass;
 
-};
+}
 
 bool testRemoveBin() {
     bool pass = true;
@@ -358,12 +358,16 @@ bool testRemoveBin() {
     cout << endl;
     cout << testingBinsRemove[1].testName << ":" << endl;
     cout << endl;
-    for (int i=0; i<NO_BINS;i++) { // bin sizes -> 1,2,3,4,5,6
+    for (int i=0; i<NO_BINS;i++) { // inial bin sizes -> 0,1,2,3,4,5
         cout << "---------------------Test "<< i << " ---------------------\n";
         testBins2[i].remove(-1);
         testBins2[i].remove(testBins2[i].getSize());
         cout << testBins2[i];
-        pass = pass && assertEqualBin(testBins[i], i, i+1);
+        if (i==0) {
+           pass = pass && assertEqualBin(testBins[i], i, 2); 
+        } else {
+            pass = pass && assertEqualBin(testBins[i], i, i*2);
+        }
     }
 
     cout << "------------------------------------------------\n";
