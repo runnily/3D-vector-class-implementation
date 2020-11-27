@@ -17,26 +17,32 @@ FILES AND EXPLANATION
 (9) test_output.txt : This is an example of the test output.
 ------------------------------------------------------------------------------
 COMPILING TEST AND APPLICATION
-Within this directory, there should be a Makefile. This will allow you to compile the test program. 
-The relevant make command will create an output application.
+*Please use the Makefile to compile the test program* 
+Within this directory, there should be a Makefile. This will allow you to 
+compile the test program. The relevant make command will create an output application. 
 
-To compile tests, enter the following at the command line prompt in the  submission directory:
+You could do this using source code either (vscode etc) and open a terminal, or using
+your local terminal on your machine. 
+
+To compile tests, enter the following at the command line prompt in the submission directory:
     # make
 
 To clean up before compiling do:
     # make clean
 
-Assuming compilation is done. The following binary output application and-o files will be included in this directory
+Assuming compilation is done. The following binary output application and -o files will be 
+included in this directory:
+
     Test.o    
     Vector3D.o    
     Bin.o     
     test (The output application)
 
-Within the command line you could run:    
+Within the command line you could run the output application
     # ./test 
-    This would run the test file
+This would run the test file and show the output within terminal
 
-OR you could run    
+OR you could run 
     # ./test > test_output.txt
 This would allow the output of the test to show within the test_output.txt file.
 
