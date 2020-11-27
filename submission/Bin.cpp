@@ -1,4 +1,4 @@
-/**
+/*
     Vector: The vector class
     @file vector3D.h
     @author Adanna Obibuaku
@@ -104,7 +104,7 @@ void Bin::vectorCpy(Vector3D cpy[], Vector3D pst[], int index, int size){
 }
 
 
-Bin Bin::operator=(Bin rhs){
+Bin Bin::operator=(const Bin &rhs){
     if (rhs.init) {
         if (this == &rhs){
             return *this;

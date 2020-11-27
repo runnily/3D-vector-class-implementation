@@ -1,3 +1,9 @@
+/*
+    TestVector3D: Defined functions for testing the vector3D class
+    @file vector3D.h
+    @author Adanna Obibuaku
+    @date 14/11/20
+*/
 #define TEST_X 1
 #define TEST_Y 1
 #define TEST_Z 1

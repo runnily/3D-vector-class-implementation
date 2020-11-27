@@ -107,7 +107,7 @@ class Bin {
         * Input:
         *   Bin (rhs): The rhs of the bin
         */
-        Bin operator= (Bin rhs);
+        Bin operator= (const Bin &rhs);
 
         /*
         * Operator []: returns the index at c

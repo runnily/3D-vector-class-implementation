@@ -35,11 +35,8 @@ Vector3D Vector3D::unit() {
     return Vector3D(x/mag,y/mag,z/mag);
 }
 
-bool Vector3D::orthogonal(Vector3D rhs) {
-    if ((*this)*rhs == 0) {
-        return true;
-    }
-    return false;
+Vector3D Vector3D::orthogonal(Vector3D rhs) {
+    return ((*this)%rhs).unit();
 }
 
 float Vector3D::getX() {

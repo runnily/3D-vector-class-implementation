@@ -1,4 +1,4 @@
-/**
+/*
     Vector: The vector interface 
     @file vector3D.h
     @author Adanna Obibuaku
@@ -49,7 +49,7 @@ class Vector3D {
         * Output:
         *   (bool): Denotes True when two vectors are perpendicular or false when not.
         */
-        bool orthogonal(Vector3D rhs); 
+        Vector3D orthogonal(Vector3D rhs); 
 
         /*
         * getX: This will get the x componet

@@ -1,3 +1,9 @@
+/*
+    TestBin: Defined functions for testing the bin class
+    @file vector3D.h
+    @author Adanna Obibuaku
+    @date 14/11/20
+*/
 #define NO_BINS 6
 #define NO_BIN_TEST 7
 #ifndef BIN_HEADER
@@ -82,7 +88,7 @@ bool testYComponetBin();
 
 /*
 * testZComponet: testing the getZ() function in Bin class
-* Expected normal: 2        Input: getZ(1)      Enviorment: (Size = 2 )
+* Expected normal: 1        Input: getZ(1)      Enviorment: (Size = 2 )
 * Expected range: 0.0       Input: getZ(5)
 */
 bool testZComponetBin();
@@ -94,51 +100,55 @@ bool testZComponetBin();
 *                add function works correctly to add n number of elements when 
 *                our bin size is within range. 
 *                
-* Expected testBins[0] = Nothing 
+* Expected testBins[0] = Nothing        Input vectors: Nothing
+*                                       Bin size: 0
 * 
-* Expected testBins[1] = |(1,1,1)| 
+* Expected testBins[1] = |(1,1,1)|      Input vectors: (1,1,1)
+*                                       Bin size: 1
 * 
-* Expected testBins[2] = |(1,1,1)| 
-*                        |(2,1,1)|
+* Expected testBins[2] = |(1,1,1)|      Input vectors: (1,1,1), (2,1,1)
+*                        |(2,1,1)|      Bin size: 2
 * 
-* Expected testBins[3] = |(1,1,1)| 
-*                        |(2,1,1)|
+* Expected testBins[3] = |(1,1,1)|      Input vectors: (1,1,1), (2,1,1), (3,1,1)
+*                        |(2,1,1)|      Bin size: 3
 *                        |(3,1,1)|
 * 
-* Expected testBins[4] = |(1,1,1)|
-*                        |(2,1,1)|
+* Expected testBins[4] = |(1,1,1)|      Input vectors: (1,1,1), (2,1,1), (3,1,1), (4,1,1)
+*                        |(2,1,1)|      Bin size: 4
 *                        |(3,1,1)|
 *                        |(4,1,1)|
 *
-* Expected testBins[5] = |(1,1,1)|
-*                        |(2,1,1)|
+* Expected testBins[5] = |(1,1,1)|      Input vectors: (1,1,1), (2,1,1), (3,1,1), (4,1,1), (5,1,1)
+*                        |(2,1,1)|      Bin size: 5
 *                        |(3,1,1)|
 *                        |(4,1,1)|
 *                        |(5,1,1)|
+*
 * range values: We have bin sizes of 6 test Bin objects which have the the sizes
 *               n = 0, 1, 2, 3, 4, 5 respectivly. We are testing that the add function
 *               works correctly to add n+1 number off elements when our bin size
 *               is out of range.
-* Expected testBins2[0] = |(1,1,1)|
-*                         |(0,0,0)|
+*
+* Expected testBins2[0] = |(1,1,1)|     Input Vector: (1,1,1)
+*                         |(0,0,0)|     Bin size: 0
 * 
-* Expected testBins2[1] = |(1,1,1)|
-*                         |(2,1,1)|
+* Expected testBins2[1] = |(1,1,1)|     Input Vector: (1,1,1), (2,1,1)
+*                         |(2,1,1)|     Bin size: 1
 *                           
-* Expected testBins2[2] = |(1,1,1)|
-*                         |(2,1,1)|
+* Expected testBins2[2] = |(1,1,1)|     Input Vector: (1,1,1), (2,1,1), (3,1,1)
+*                         |(2,1,1)|     Bin size: 2
 *                         |(3,1,1)|
 *                         |(0,0,0)|
 *       
-* Expected testBins2[3] = |(1,1,1)|
-*                         |(2,1,1)|
+* Expected testBins2[3] = |(1,1,1)|     Input Vector: (1,1,1), (2,2,2), (3,1,1), (4,1,1)
+*                         |(2,1,1)|     Bin size: 4
 *                         |(3,1,1)|
 *                         |(4,1,1)|
 *                         |(0,0,0)|
 *                         |(0,0,0)|
 *
-* Expected testBins2[4] = |(1,1,1)|
-*                         |(2,1,1)|
+* Expected testBins2[4] = |(1,1,1)|     Input Vector: (1,1,1), (2,2,2), (3,1,1), (4,1,1), (5,1,1)
+*                         |(2,1,1)|     Bin size: 5
 *                         |(3,1,1)|
 *                         |(4,1,1)|
 *                         |(5,1,1)|
@@ -146,8 +156,8 @@ bool testZComponetBin();
 *                         |(0,0,0)|
 *                         |(0,0,0)|
 *                       
-* Expected testBins2[5] = |(1,1,1)|
-*                         |(2,1,1)|
+* Expected testBins2[5] = |(1,1,1)|     Input Vector: (1,1,1), (2,2,2), (3,1,1), (4,1,1), (5,1,1)
+*                         |(2,1,1)|     Bin size: 6
 *                         |(3,1,1)|
 *                         |(4,1,1)|
 *                         |(5,1,1)|
@@ -162,6 +172,8 @@ bool testAddBin();
 
 /*
 * testRemoveBin: Testing the remove function in Bin class
+*
+* --> where using the same bins as before.
 *
 * normal values: Testing we can remove element, when elements exits within the 
 *                Bin object.

@@ -1,3 +1,9 @@
+/*
+    Test: To test the Bin class and the vector class
+    @file vector3D.h
+    @author Adanna Obibuaku
+    @date 14/11/20
+*/
 #ifndef Test
 #define Test
 
@@ -76,8 +82,9 @@ bool testUnitVector(Vector3D v, Vector3D expected) {
     return (testCompontentX(sum, expected.getX()) && testCompontentY(sum, expected.getY()) && testCompontentZ(sum, expected.getZ()));
 }
 
-bool testOrthogonal(Vector3D v, Vector3D v1, bool expected) {
-    return (v.orthogonal(v1)==expected);
+bool testOrthogonal(Vector3D v, Vector3D v1, Vector3D expected) {
+    Vector3D sum = v.orthogonal(v1);
+    return (testCompontentX(sum, expected.getX()) && testCompontentY(sum, expected.getY()) && testCompontentZ(sum, expected.getZ()));
 }
 
 float expectedMagnitude(float x, float y, float z) {
@@ -111,9 +118,9 @@ void runAllVectorTests() {
     };
 
 
-    for (int x = 0; x<10; x++) {
-        for (int y = 0; y<10; y++ ) {
-            for (int z = 0; z<10; z++) {
+    for (int x = -5; x<5; x++) {
+        for (int y = -5; y<5; y++ ) {
+            for (int z = -5; z<5; z++) {
                 Vector3D v = Vector3D(x,y,z);
                 Vector3D test = Vector3D(TEST_X,TEST_Y, TEST_Z);
                 if (testCompontentX(v, x)) {
@@ -143,13 +150,13 @@ void runAllVectorTests() {
                 if (testScalarProduct(v, test, x*TEST_X+y*TEST_Y+z*TEST_Z)){
                     testVectors[8].passedCases++;
                 }
-                if (testVectorProduct(v, test, Vector3D(y*TEST_Z-z*TEST_Z, z*TEST_X-x*TEST_Z, x*TEST_Y-y*TEST_X))){
+                if (testVectorProduct(v, test, Vector3D(y*TEST_Z-z*TEST_Y, z*TEST_X-x*TEST_Z, x*TEST_Y-y*TEST_X))){
                     testVectors[9].passedCases++;
                 }
                 if (testUnitVector(v,  expectedUnit(x ,y ,z) )){
                     testVectors[10].passedCases++;
                 } 
-                if (testOrthogonal(v, test, (0==(x*TEST_X+y*TEST_Y+z*TEST_Z)) ) ){
+                if (testOrthogonal(v, test, expectedUnit(y*TEST_Z-z*TEST_Y, z*TEST_X-x*TEST_Z, x*TEST_Y-y*TEST_X)) ){
                     testVectors[11].passedCases++;
                 } 
             }
