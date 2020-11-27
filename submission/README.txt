@@ -17,7 +17,7 @@ FILES AND EXPLANATION
 (9) test_output.txt : This is an example of the test output.
 ------------------------------------------------------------------------------
 COMPILING TEST AND APPLICATION
-Within this directory, there should be a Makefile. This will allow you to compilethe test program. 
+Within this directory, there should be a Makefile. This will allow you to compile the test program. 
 The relevant make command will create an output application.
 
 To compile tests, enter the following at the command line prompt in the  submission directory:
